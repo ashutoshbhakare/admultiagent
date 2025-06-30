@@ -1,0 +1,228 @@
+# CBSE Class 8 Multi-Agent Study System 
+A simplified AI-powered study assistant for CBSE Class 8 students, built using Google's ADK with Gemini 2.0 Flash model. This system leverages Gemini's built-in knowledge of NCERT textbooks to provide accurate, curriculum-aligned educational support.
+
+## Overview
+
+This multi-agent system provides specialized academic support for 8th grade CBSE students across all major subjects. The system uses a coordinator agent that intelligently routes student questions to subject-specific specialist agents, all staying strictly within CBSE Class 8 curriculum bounds.
+
+## Key Features
+
+✅ **Simplified Architecture**: No external tools or config files - leverages Gemini's built-in knowledge  
+✅ **Curriculum Aligned**: Strictly follows NCERT Class 8 textbooks  
+✅ **Subject Specialists**: Dedicated agents for each major subject  
+✅ **Age Appropriate**: Designed specifically for 13-14 year old students  
+✅ **Multilingual**: Supports English and Hindi  
+✅ **Smart Routing**: Automatically routes questions to the right specialist  
+
+## Architecture
+
+### Coordinator Agent
+- **Main Router**: Analyzes student questions and routes to appropriate specialists
+- **Model**: Gemini 2.0 Flash Thinking Experimental
+- **Strict Boundaries**: Only handles CBSE Class 8 curriculum topics
+
+### Subject Specialist Agents
+
+1. **Mathematics Agent** - NCERT Class 8 Mathematics
+   - Rational Numbers, Linear Equations, Quadrilaterals
+   - Practical Geometry, Data Handling, Mensuration
+   - Squares/Cubes, Algebraic Expressions, Graphs
+
+2. **Science Agent** - NCERT Class 8 Science  
+   - Physics: Force, Pressure, Friction, Light, Sound
+   - Chemistry: Metals, Combustion, Chemical Effects
+   - Biology: Cell Structure, Reproduction, Microorganisms
+
+3. **English Agent** - NCERT Honeydew Textbook
+   - Literature: All 10 chapters from Honeydew
+   - Grammar and vocabulary for Class 8 level
+   - Reading comprehension and writing skills
+
+4. **Social Science Agent** - History, Geography, Civics
+   - History: Colonial India to Independence
+   - Geography: Resources, Agriculture, Industries  
+   - Civics: Constitution, Democracy, Laws
+
+5. **Hindi Agent** - NCERT Durva Textbook
+   - All 18 chapters from Durva पुस्तक
+   - Grammar और भाषा कौशल
+   - साहित्य appreciation और analysis
+
+6. **General Study Agent** - Study Strategies
+   - Exam preparation for Class 8 students
+   - Time management and study techniques
+   - Confidence building and stress management
+
+## Installation
+
+### 1. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Model & Authentication Setup
+
+This system uses Google's Gemini models via the ADK. You have two setup options:
+
+#### Option A: Google AI Studio (Recommended for Development)
+- **Best for**: Development, testing, rapid prototyping
+- **Requirements**: Just an API key
+- **Setup**:
+  1. Get your API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
+  2. Copy `.env.example` to `.env`:
+     ```bash
+     cp .env.example .env
+     ```
+  3. Edit `.env` and add your API key:
+     ```bash
+     GOOGLE_API_KEY=your_actual_api_key_here
+     GOOGLE_GENAI_USE_VERTEXAI=FALSE
+     ```
+
+#### Option B: Vertex AI (Recommended for Production)
+- **Best for**: Production applications, enterprise features
+- **Requirements**: Google Cloud Project with Vertex AI enabled
+- **Setup**:
+  1. Set up a [Google Cloud Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
+  2. [Enable the Vertex AI API](https://console.cloud.google.com/apis/enableflow?apiid=aiplatform.googleapis.com)
+  3. Authenticate with Application Default Credentials:
+     ```bash
+     gcloud auth application-default login
+     ```
+  4. Copy `.env.example` to `.env` and configure for Vertex AI:
+     ```bash
+     cp .env.example .env
+     ```
+  5. Edit `.env` with your Vertex AI settings:
+     ```bash
+     GOOGLE_GENAI_USE_VERTEXAI=TRUE
+     GOOGLE_CLOUD_PROJECT=your_project_id
+     GOOGLE_CLOUD_LOCATION=us-central1
+     ```
+
+### 3. Usage
+```python
+from cbse_multi_agent_system import cbse_class8_agent
+
+# The agent automatically routes questions to specialists
+# Examples:
+# "What are rational numbers?" → Mathematics Agent
+# "Explain photosynthesis" → Science Agent  
+# "Tell me about The Tsunami story" → English Agent
+```
+
+## NCERT Curriculum Coverage
+
+### Mathematics (14 Chapters)
+All chapters from NCERT Class 8 Mathematics textbook including Rational Numbers, Linear Equations, Quadrilaterals, Practical Geometry, Data Handling, and more.
+
+### Science (18 Chapters)  
+Complete coverage of NCERT Class 8 Science including Crop Production, Microorganisms, Synthetic Fibres, Metals and Non-metals, Force and Pressure, Light, Sound, and Environmental topics.
+
+### English (Honeydew)
+All 10 lessons from the Honeydew textbook plus age-appropriate grammar, vocabulary, and writing skills.
+
+### Social Science
+- **History**: Colonial period to Independence (10 chapters)
+- **Geography**: Resources and Development (6 chapters)  
+- **Civics**: Constitution and Democracy (8 chapters)
+
+### Hindi (Durva)
+All 18 chapters from the Durva textbook with focus on भाषा कौशल और साहित्य appreciation.
+
+## Example Interactions
+
+```
+Student: "Solve 2x + 5 = 15"
+→ Mathematics Agent explains step-by-step solution
+
+Student: "What causes friction?"  
+→ Science Agent explains with Class 8 appropriate examples
+
+Student: "Tell me about Bepin Choudhury story"
+→ English Agent discusses the Honeydew chapter
+
+Student: "भारतीय संविधान क्या है?"
+→ Social Science Agent explains in age-appropriate language
+
+Student: "गुड़िया पाठ का सार बताएं"  
+→ Hindi Agent provides summary and analysis
+
+Student: "How to prepare for exams?"
+→ General Study Agent gives Class 8 specific tips
+```
+
+## Key Benefits
+
+1. **No External Dependencies**: Uses Gemini's built-in NCERT knowledge
+2. **Curriculum Compliance**: Strict adherence to Class 8 syllabus  
+3. **Age Appropriate**: Language and examples suitable for 13-14 year olds
+4. **Intelligent Routing**: Questions automatically go to right specialist
+5. **Comprehensive Coverage**: All major CBSE subjects in one system
+6. **Educational Focus**: Promotes understanding, not just answers
+
+## File Structure
+
+```
+cbse_multi_agent_system/
+├── agent.py           # Main agent system (all-in-one)
+├── __init__.py        # Package exports  
+├── requirements.txt   # Minimal dependencies
+├── .env.example       # Environment configuration template
+├── README.md         # This file
+└── test_agent.py      # Usage examples (if needed)
+```
+
+## Testing
+
+```bash
+python test_agent.py
+```
+
+This will display example questions for each subject to demonstrate the routing capabilities.
+
+## Troubleshooting
+
+### Common Setup Issues
+
+1. **Authentication Errors**
+   - **Google AI Studio**: Verify your API key is correct and active
+   - **Vertex AI**: Ensure you've run `gcloud auth application-default login`
+
+2. **Model Not Found**
+   - Check that `GOOGLE_GENAI_USE_VERTEXAI` is set correctly (TRUE/FALSE)
+   - Verify your model name matches available Gemini models
+
+3. **Permission Errors (Vertex AI)**
+   - Ensure Vertex AI API is enabled in your Google Cloud Project
+   - Check your Google Cloud Project ID and location are correct
+   - Verify your account has necessary IAM permissions
+
+4. **Environment Variables**
+   - Make sure your `.env` file is in the same directory as `agent.py`
+   - Check that environment variables are properly formatted (no extra spaces)
+
+For more details, see the [ADK Models documentation](https://google.github.io/adk-docs/agents/models/).
+
+## Technical Details
+
+- **Framework**: Google ADK (Agent Development Kit)
+- **Model**: Gemini 2.5 Flash Preview (`gemini-2.5-flash-preview-04-17`)
+- **Model Backend**: Google AI Studio (development) / Vertex AI (production)
+- **Architecture**: Multi-agent with coordinator routing using `LlmAgent`
+- **Knowledge Source**: Gemini's built-in NCERT textbook knowledge
+- **Authentication**: API key (Google AI Studio) or ADC (Vertex AI)
+- **Integration Method**: Direct model string identifier via ADK registry
+
+## Educational Philosophy
+
+This system is designed to:
+- Encourage learning and understanding
+- Stay within appropriate academic boundaries  
+- Provide patient, encouraging responses
+- Build confidence in students
+- Promote curiosity while maintaining curriculum focus
+
+---
+
+*Built with ❤️ for CBSE Class 8 students to make learning more accessible and engaging using AI.* 
